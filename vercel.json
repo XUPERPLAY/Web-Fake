@@ -1,8 +1,22 @@
 {
-  "rewrites": [
+  "headers": [
     {
-      "source": "/api/wiseplay",
-      "destination": "/menu.m3u"
+      "source": "/menu.m3u",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/x-mpegURL" 
+        }
+      ]
+    },
+    {
+      "source": "/index.html",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache"
+        }
+      ]
     }
   ]
 }
