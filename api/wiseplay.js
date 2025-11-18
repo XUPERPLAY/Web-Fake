@@ -1,24 +1,8 @@
-// api/wiseplay.js
-
-module.exports = (req, res) => {
-  // Obtenemos la URL de tu proyecto desplegado en Vercel
-  const hostUrl = `https://${req.headers.host}`;
-  
-  // La URL del menú HTML (index.html)
-  const menuUrl = `${hostUrl}/index.html`; 
-
-  // Generamos el contenido M3U/W3U
-  const m3uContent = `#EXTM3U
-#EXTINF:-1, Menu Principal de Canales
-#EXTHTML:${menuUrl}
-`;
-
-  // Establecemos los encabezados para que Wiseplay reconozca la lista
+// Asegúrate de que esta parte de tu api/wiseplay.js sea EXACTA:
   res.writeHead(200, {
-    'Content-Type': 'application/vnd.apple.mpegurl',
-    'Content-Length': Buffer.byteLength(m3uContent, 'utf8')
+    // ESTE Content-Type es el más compatible para listas M3U/M3U8
+    'Content-Type': 'application/x-mpegURL', 
+    'Content-Length': Buffer.byteLength(m3uContent, 'utf8'),
+    // Esto es opcional, pero ayuda:
+    'Content-Disposition': 'inline; filename="playlist.m3u"' 
   });
-
-  // Enviamos el contenido M3U
-  res.end(m3uContent);
-};
